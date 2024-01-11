@@ -15,7 +15,7 @@ function flip(){
     if(drawmode){
         drawmode = false;
     }
-    else(drawmode){
+    else{
         drawmode = true;
     }
 }
