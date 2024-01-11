@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf-8" />
+
+  </head>
+  <body>
+    <h1> fourier? for who?</h1>
+    <p>
+        the plan is to
+        <ol>
+            <li>have arrays of lines that start with M</li>
+            <li>run a double for [length of list] and find min distance and for which points</li>
+            <li>do that for every M array</li>
+            <li>find min distance and find a way such that all M arrays are visited</li>
+            <li>impliment and add [back tracking on arrays to find the point]</li>
+            <li>requires a lot of data abstraction UGH (lame)</li>
+
+        </ol>
+    
+    </p>
+    <script src="nearestNeighbour.js"></script>
+    <script src="fourier.js"></script>
+    <script src="bezierMINE.js"></script>
+    <script src="sketch.js"></script>
+
+    <button>draw</button>
+    <div class="slidecontainer">
+        speed
+        <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+    </div>
+    <button> no more draw</button>
+    
+  </body>
+</html>
