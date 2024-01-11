@@ -11,6 +11,14 @@ let drawing = [];
 let preset = [];
 let speed = 60;
 
+function flip(){
+    if(drawmode){
+        drawmode = false;
+    }
+    else(drawmode){
+        drawmode = true;
+    }
+}
 
 function mousePressed(){
     if (drawmode){
