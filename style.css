@@ -1,0 +1,34 @@
+
+  canvas {
+    display: block;
+  }
+  
+  header{
+    margin-top: 1.5%;
+    padding: 1.5%;
+    font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: center;
+    background-color: white;
+    position: absolute top;
+
+    
+    
+  }
+
+  body{
+    background-color: white;
+  }
+
+  .fourier{
+    margin: 3%;
+    padding: 1%;
+    
+
+  }
+  table, th, td {
+    border:1px solid black;
+    text-align: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
+  
+
