@@ -20,8 +20,8 @@ function dft(x){
     for (let k = 0; k < N; k++){
         let sum = new Complex(0,0);
         for (let n = 0; n < N; n++) {
-            const phi = (TWO_PI * k * n) / N;
-            const c = new Complex(cos(phi), -sin(phi));
+            const phi = (Math.PI* 2 * k * n) / N;
+            const c = new Complex(<Math.cos(phi), -Math.sin(phi));
             sum.add(x[n].mult(c));
           }
           sum.re = sum.re / N;
