@@ -47,8 +47,8 @@ function getAvg(a, b, c, d, e, f, g, h, i){
 let map = [];
 function setup(){
     frameRate(12);
-    var hodge = createCanvas(Math.max(400, Math.min(windowWidth / 2, windowHeight / 2)), Math.max(400, Math.min(windowWidth / 2, windowHeight / 2)));
-    hodge.parent('podge');
+    createCanvas(Math.max(400, Math.min(windowWidth / 2, windowHeight / 2)), Math.max(400, Math.min(windowWidth / 2, windowHeight / 2)));
+
     background(0);
     pixelDensity(1);
     noStroke();
