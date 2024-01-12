@@ -1,27 +1,66 @@
-const r = ( q ) => {
-    let x = [];
-    let y = [];
-    let fourierX;
-    let time = 0;
-    let path = [];
-    const USER = 0;
-    const NORMAL = 1;
-    var drawmode = false;
-    var user =  false;
-    let drawing = [];
-    let preset = [];
-    let speed = 60;
-
-    function flip(){
-        if(drawmode){
-            drawmode = false;
-        }
-        else{
-            drawmode = true;
-        }
+var drawmode = false;
+function flip(){
+    if(drawmode){
+        drawmode = false;
     }
+    else{
+        drawmode = true;
+    }
+}
+class Complex{
+    constructor(a,b){
+        this.re = a;
+        this.im = b;
+    }
+    mult(c){
+        const re = this.re * c.re - this.im * c.im;
+        const im = this.re * c.im + this.im * c.re
+        return new Complex(re, im)
+    }
+    add(c){
+        this.re += c.re;
+        this.im += c.im;
+    }
+}
+let x = [];
+let y = [];
+let fourierX;
+let time = 0;
+let path = [];
+const USER = 0;
+const NORMAL = 1;
 
-    function mousePressed(){
+var user =  false;
+let drawing = [];
+let preset = [];
+let speed = 60;
+
+function dft(x){
+    let X = [];
+    const N = x.length
+    for (let k = 0; k < N; k++){
+        let sum = new Complex(0,0);
+        for (let n = 0; n < N; n++) {
+            const phi = (Math.PI* 2 * k * n) / N;
+            const c = new Complex(Math.cos(phi), -Math.sin(phi));
+            sum.add(x[n].mult(c));
+          }
+          sum.re = sum.re / N;
+          sum.im = sum.im / N;
+      
+          let freq = k;
+          let amp = Math.sqrt(sum.re * sum.re + sum.im * sum.im);
+          let phase = Math.atan2(sum.im, sum.re);
+          X[k] = { re: sum.re, im: sum.im, freq, amp, phase };
+        }
+        return X;
+}
+var r = ( q ) => {
+
+
+
+
+    q.mousePressed = function(){
         if (drawmode){
             drawing = [];
             user = true;
@@ -29,12 +68,11 @@ const r = ( q ) => {
             time = 0;
             path = [];
         }
-
     }
     function cpt(x, y){
         return new Complex(x, y);
     }
-    function mouseReleased(){
+    q.mouseReleased = function(){
         if (drawmode){
             user = false;
             for (let i = 0; i < drawing.length; i++){
@@ -46,17 +84,15 @@ const r = ( q ) => {
 
     q.setup = function(){
         
-        frameRate(60);
+        q.frameRate(60);
         
-        var canvas = createCanvas(Math.max(400, Math.min(windowWidth / 2, windowHeight / 2)), Math.max(400, Math.min(windowWidth / 2, windowHeight / 2)));
-        canvas.parent('fourier');
-        background(0);
-        textAlign(CENTER);
-        textSize(64);
+        q.createCanvas(Math.max(400, Math.min(q.windowWidth / 2, q.windowHeight / 2)), Math.max(400, Math.min(q.windowWidth / 2, q.windowHeight / 2)));
+        q.background(0);
+
         fourierX = dft(x);
         console.log(nnpath);
         for (let i = 0; i < nnpath.length; i++){
-            y.push(new Complex(nnpath[i].x - width/2, nnpath[i].y - height/2));
+            y.push(new Complex(nnpath[i].x - q.width/2, nnpath[i].y - q.height/2));
         }
         fourierY = dft(y);
     }
@@ -67,48 +103,48 @@ const r = ( q ) => {
         let freq = fourier[i].freq;
         let radius = fourier[i].amp;
         let phase = fourier[i].phase;
-        x += radius * cos(freq * time + phase + rotation);
-        y += radius * sin(freq * time + phase + rotation);
+        x += radius * Math.cos(freq * time + phase + rotation);
+        y += radius * Math.sin(freq * time + phase + rotation);
     
-        stroke(255, 100);
-        noFill();
-        ellipse(prevx, prevy, radius * 2);
-        stroke(255);
-        line(prevx, prevy, x, y);
+        q.stroke(255, 100);
+        q.noFill();
+        q.ellipse(prevx, prevy, radius * 2);
+        q.stroke(255);
+        q.line(prevx, prevy, x, y);
         }
-        return createVector(x, y);
+        return q.createVector(x, y);
     }
     
     q.draw = function(){
-        frameRate(speed);
-        background(0);
+        q.frameRate(speed);
+        q.background(0);
         if (drawmode && user){
-            background(0);
-            let point = createVector(mouseX - width / 2, mouseY - height / 2)
+            q.background(0);
+            let point = q.createVector(q.mouseX - q.width / 2, q.mouseY - q.height / 2)
             drawing.push(point);
-            stroke(220);
-            noFill();
-            beginShape();
+            q.stroke(255, 255, 0);
+            q.beginShape();
+            q.noFill();
             for (let v of drawing) {
-                vertex(v.x + width / 2, v.y + height / 2);
+                q.vertex(v.x + q.width / 2, v.y + q.height / 2);
             }
-            endShape();
+            q.endShape();
         }
         else if(drawmode && !(user) ){
-            let v = epicycles(width / 2, height / 2, 0, fourierX);
+            let v = epicycles(q.width / 2, q.height / 2, 0, fourierX);
             path.unshift(v);
-            stroke(255, 255, 0);
-            beginShape();
-            noFill();
+            q.stroke(255, 255, 0);
+            q.beginShape();
+            q.noFill();
             for (let i = 0; i < path.length; i++) {
-                vertex(path[i].x, path[i].y);
+                q.vertex(path[i].x, path[i].y);
             }
-            endShape();
+            q.endShape();
         
-            const dt = (TWO_PI/ fourierX.length);
+            const dt = (Math.PI* 2/ fourierX.length);
             time += dt;
         
-            if (time > TWO_PI) {
+            if (time > Math.PI* 2) {
                 time = 0;
                 drawing = [];
                 path = [];
@@ -116,20 +152,20 @@ const r = ( q ) => {
 
         }
         else{
-            let v = epicycles(width / 2, height / 2, 0, fourierY);
+            let v = epicycles(q.width / 2, q.height / 2, 0, fourierY);
             path.unshift(v);
-            stroke(255, 255, 0);
-            beginShape();
-            noFill();
+            q.stroke(255, 255, 0);
+            q.beginShape();
+            q.noFill();
             for (let i = 0; i < path.length; i++) {
-                vertex(path[i].x, path[i].y);
+                q.vertex(path[i].x, path[i].y);
             }
-            endShape();
+            q.endShape();
         
-            const dt = (TWO_PI/ fourierY.length);
+            const dt = (Math.PI* 2/ fourierY.length);
             time += dt;
         
-            if (time > TWO_PI) {
+            if (time > Math.PI* 2) {
                 time = 0;
                 path = [];
             }
@@ -141,7 +177,7 @@ const r = ( q ) => {
 // create a canvas 500x500
 // create a class aka an object to have neighbours and a function to calculate the next colour thingy
 // draw the whole canvas
-const s = ( p ) => {
+var s = ( p ) => {
 let w = 2.5;
 class Dot{
     constructor(red, blue, green){
@@ -151,7 +187,7 @@ class Dot{
     }
     calculateColour(){
         if(Math.max(this.red, this.blue, this.green) === this.red){
-            return([0,100,0]);
+            return([255,99,71]);
         }
         else if(Math.max(this.red, this.blue, this.green) === this.blue){
             return([255,255,255]);
@@ -159,6 +195,7 @@ class Dot{
         else if(Math.max(this.red, this.blue, this.green ) === this.green ){
             return([255,255,255]);
         }
+        console.log(Math.max(this.red, this.blue, this.green ));
     }
 }
 function getAvg(a, b, c, d, e, f, g, h, i){
@@ -187,14 +224,14 @@ function getAvg(a, b, c, d, e, f, g, h, i){
 
 let map = [];
 p.setup = function(){
-    frameRate(12);
-    createCanvas(Math.max(400, Math.min(windowWidth / 2, windowHeight / 2)), Math.max(400, Math.min(windowWidth / 2, windowHeight / 2)));
+    p.frameRate(12);
+    p.createCanvas(Math.max(400, Math.min(p.windowWidth / 2, p.windowHeight / 2)), Math.max(400, Math.min(p.windowWidth / 2, p.windowHeight / 2)));
 
-    background(0);
-    pixelDensity(1);
-    noStroke();
-    let x = width;
-    let y = height;
+    p.background(0);
+    p.pixelDensity(1);
+    p.noStroke();
+    let x = p.width;
+    let y = p.height;
     for(let i = 0; i < y; i++){
         map[i] = [];
         for(let j = 0; j < x; j++){
@@ -204,17 +241,17 @@ p.setup = function(){
 }
 
 p.draw= function(){
-    loadPixels();
-    let sqWidth = width;
-    let sqHeight = height;
+    p.loadPixels();
+    let sqWidth = p.width;
+    let sqHeight = p.height;
 
-    for (let y = 0; y < height; y++){
-        for(var x = 0; x < width ; x++){
-            var index = (x + y*width)*4;
-            pixels[index + 0] = map[y][x].calculateColour()[0]
-            pixels[index + 1] = map[y][x].calculateColour()[1]
-            pixels[index + 2] = map[y][x].calculateColour()[2]
-            pixels[index + 3] = 255;
+    for (let y = 0; y < p.height; y++){
+        for(var x = 0; x < p.width ; x++){
+            var index = (x + y*p.width)*4;
+            p.pixels[index + 0] = map[y][x].calculateColour()[0]
+            p.pixels[index + 1] = map[y][x].calculateColour()[1]
+            p.pixels[index + 2] = map[y][x].calculateColour()[2]
+            p.pixels[index + 3] = 255;
         }
     }
     let newMap = [];
@@ -238,11 +275,11 @@ p.draw= function(){
         }
     }
     map = newMap;
-    updatePixels();
+    p.updatePixels();
 }
 p.mouseClicked = function() {
-    let x = width;
-    let y = height;
+    let x = p.width;
+    let y = p.height;
     for(let i = 0; i < y; i++){
         map[i] = [];
         for(let j = 0; j < x; j++){
@@ -251,5 +288,7 @@ p.mouseClicked = function() {
     }
   }
 }
-new p5(r, 'fourier');
-new p5(s, 'podge');
+
+
+var myp5 = new p5(r, 'fourier');
+var myp5 = new p5(s, 'podge');
