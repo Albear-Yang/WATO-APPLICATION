@@ -225,7 +225,7 @@ function getAvg(a, b, c, d, e, f, g, h, i){
 let map = [];
 p.setup = function(){
     p.frameRate(12);
-    p.createCanvas(400, 400);
+    p.createCanvas(Math.floor(Math.max(300, Math.min(p.windowWidth / 2, p.windowHeight / 2))), Math.floor(Math.max(300, Math.min(p.windowWidth / 2, p.windowHeight / 2))));
 
     p.background(0);
     p.pixelDensity(1);
