@@ -257,6 +257,7 @@ p.draw= function(){
     let newMap = [];
     for(let z = 0; z < sqHeight; z++){
         newMap[z] = [];
+        
         for(let x = 0; x < sqWidth; x++){
             //first row
             let a = map[(z - 1 + sqHeight)%sqHeight][(x - 1 + sqWidth)%sqWidth]
