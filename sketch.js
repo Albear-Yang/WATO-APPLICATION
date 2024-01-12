@@ -260,9 +260,9 @@ p.draw= function(){
         
         for(let x = 0; x < sqWidth; x++){
             //first row
-            let a = map[(z - 1 + sqHeight)%sqHeight][(x - 1 + sqWidth)%sqWidth]
-            let b = map[(z - 1 + sqHeight)%sqHeight][(x + sqWidth)%sqWidth]
-            let c = map[(z - 1 + sqHeight)%sqHeight][(x + 1+ sqWidth)%sqWidth]
+            let a = map[(z - 1 + sqHeight) % sqHeight][(x - 1 + sqWidth) % sqWidth]
+            let b = map[(z - 1 + sqHeight) % sqHeight][(x + sqWidth) % sqWidth]
+            let c = map[(z - 1 + sqHeight) % sqHeight][(x + 1+ sqWidth) % sqWidth]
             //middle row
             let d = map[(z + sqHeight)%sqHeight][(x - 1 + sqWidth)%sqWidth]
             let e = map[(z + sqHeight)%sqHeight][(x + sqWidth)%sqWidth]
