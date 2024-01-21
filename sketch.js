@@ -57,9 +57,6 @@ function dft(x){
 }
 var r = ( q ) => {
 
-
-
-
     q.mousePressed = function(){
         if (drawmode){
             drawing = [];
