@@ -9,25 +9,27 @@
     <script src="fourier.js"></script>
     <script src="bezierMINE.js"></script>
     <script src="sketch.js"></script>
+    <div id = "pushdown"><header className = "top">
+      <text>
+        Projects
+      </text>
+  
+      <div>
+        <a className = "top-child" id = "top-title" href = "https://albear-yang.github.io/Web/">[  Albear Network  ]</a>
+      </div>
+      
+    </header></div>
   </head>
-  <body>
-    <main>
-        
-        <div id = "wtf">
-            <header>
-                <h1> I don't have a portfolio website</h1>
-            <h2> i made this to show some of my projects</h2>
-            </header>
-        </div>
 
-    </main>
+  <body>
+   
     <div>
         <div class = "fourier">
             <table style="width:100%">
                 <tr>
-                  <td>
+                  <td class = "thumb">
                     <div id="fourier"></div>
-                    </td>
+                  </td>
                   <td><h3>Drawing with rotating circles</h3>
                     using JavaScript I applied the fourier Transform onto a sequence of points which let me draw a series of rotating epicycles.
                     <br>
@@ -40,15 +42,15 @@
                   </td>
                 </tr>
                 <tr>
-                    <td>
-                        <iframe src="https://www.desmos.com/calculator/uetowhl0ov?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder=0></iframe>
+                    <td class = "thumb">
+                        <iframe src="https://www.desmos.com/calculator/uetowhl0ov?embed" width= 100% height="500" style="border: 1px solid #ccc" frameborder=0></iframe>
                       </td>
                     <td><h3>Graphing my face</h3>
                       using python I harvested and analyzed for 30,000 points of data to produce accurate mathematical equations which could be plotted in desmos. <a href="https://www.desmos.com/calculator/qr7uxlcn5m"> link to the graph</a>.
                   </td>
                   </tr>
                   <tr>
-                    <td >
+                    <td class = "thumb">
                         <div id = "podge"> </div>
                       </td>
                     <td><h3>Belousov Zhabotinsky cellular automata</h3>
@@ -61,13 +63,18 @@
                   </td>
                   </tr>
                   <tr>
-                    <td id = "container">
-                        <img src="pee.png"  height = "200px" width = "200px">
-                      </td>
-                    <td><h3>"Smoothing" Algorithm [in progress]</h3>
-                      using JavaScript I'm developing an algorithm which is currently tested on the Wolfram Elementary Cellular Automata.  
+                    <td class = "thumb">
+                        <img src = './chess.png' width = 100% > </img>
+                    </td>
+                    <td><h3>Chess AI</h3>
+                      It was difficult to come up with an evaluation function for the min-max algorithm. For this AI, the eval function is purely based off of positional advantage with certain pieces being valued more at certain spots. Positional advantage also changes depending on what stage of the game we're on (calcualted by number of pieces on the board).
+
+                      Using python and alpha-beta pruning, I was able to make this bot significantly faster. It's chess ELO is estimated between 1300-1500 on chess.com.
+                      <br>
+                      Google Colab Notebook is buggy, so you might need to stop/start the last code-block a couple of times until an input box shows.
                   </td>
                   </tr>
+                 
               </table>    
         </div>
     </div>

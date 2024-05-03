@@ -83,7 +83,7 @@ var r = ( q ) => {
         
         q.frameRate(60);
         
-        q.createCanvas(Math.max(400, Math.min(q.windowWidth / 2, q.windowHeight / 2)), Math.max(400, Math.min(q.windowWidth / 2, q.windowHeight / 2)));
+        q.createCanvas(Math.max(400, Math.min(q.windowWidth / 2.2222, q.windowHeight / 2)), Math.max(400, Math.min(q.windowWidth / 2.2222, q.windowHeight / 2)));
         q.background(0);
 
         fourierX = dft(x);
